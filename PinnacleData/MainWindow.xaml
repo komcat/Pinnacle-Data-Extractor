@@ -1,0 +1,59 @@
+﻿<Window x:Class="PinnacleData.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PinnacleData"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1000">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Save" Click="SaveMenuItem_Click"/>
+                <MenuItem Header="Load" Click="LoadMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock x:Name="CurrentFileLabel" Text="No file loaded"/>
+            </StatusBarItem>
+        </StatusBar>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="10">
+                    <TextBox x:Name="DataInputTextBox" Height="100" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="0,0,0,10"/>
+                    <TextBox x:Name="SerialNumberTextBox" Margin="0,0,0,10"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="ProcessButton" Content="Process" Width="75" Margin="0,0,10,0" Click="ProcessButton_Click"/>
+                        <Button x:Name="ClearButton" Content="Clear" Width="75" Click="ClearButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <DataGrid x:Name="ResultDataGrid" Grid.Row="1" Margin="10" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Measurement" Binding="{Binding Measurement}" Width="*"/>
+                        <DataGridTextColumn Header="Deviation" Binding="{Binding Deviation}" Width="Auto"/>
+                        <DataGridTextColumn Header="Actual" Binding="{Binding Actual}" Width="Auto"/>
+                        <DataGridTextColumn Header="Nominal" Binding="{Binding Nominal}" Width="Auto"/>
+                        <DataGridTextColumn Header="- Tol" Binding="{Binding [- Tol]}" Width="Auto"/>
+                        <DataGridTextColumn Header="+ Tol" Binding="{Binding [+ Tol]}" Width="Auto"/>
+                        <DataGridTextColumn Header="O/T" Binding="{Binding [O/T]}" Width="Auto"/>
+                        <DataGridTextColumn Header="P/F" Binding="{Binding [P/F]}" Width="Auto"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <ListBox x:Name="SerialNumberListBox" Grid.Column="1" Margin="10" SelectionChanged="SerialNumberListBox_SelectionChanged"/>
+        </Grid>
+    </DockPanel>
+</Window>
